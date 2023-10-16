@@ -1,0 +1,38 @@
+.posicion{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.transicion{
+    background-image: url("imagenes/1.jpg");
+    background-size:cover;
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+    animation: animacion 10s infinite;
+    z-index: 1;
+}
+@keyframes animacion{
+    20%{
+        background-image: url("imagenes/2.jpg");
+        background-size: cover;
+    }
+    40%{
+        background-image: url("imagenes/3.jpg");
+        background-size: cover;
+    }
+    60%{
+        background-image: url("imagenes/4.jpg");
+        background-size: cover;
+    }
+    80%{
+        background-image: url("imagenes/5.jpg");
+        background-size: cover;
+    }
+    100%{
+        background-image: url("imagenes/1.jpg");
+        background-size: cover;
+    }
+    
+}
