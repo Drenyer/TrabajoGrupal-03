@@ -131,6 +131,7 @@
     include "Registro.php";
     include "Notificar.php";
     ?>
+    
 </body>
 
 </html>

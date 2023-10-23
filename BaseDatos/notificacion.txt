@@ -1,0 +1,4 @@
+create table notificacion{
+	Mensaje varchar(200),
+	id int(11) AUTO_INCREMENT PRIMARY KEY 
+}

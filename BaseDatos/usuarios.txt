@@ -1,0 +1,8 @@
+CREATE TABLE usuarios (
+    ID_Users int(11) AUTO_INCREMENT PRIMARY KEY,
+    Usuario varchar(40),
+    Email varchar(70),
+    ModeloDispositivo text,
+    IMEI varchar(20),
+    FechaRegistro date
+);

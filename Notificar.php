@@ -1,18 +1,19 @@
 <?php
 include("ConexionBD.php");
+include("ConexionHTTP.php");
 $base = "localhost";
 $usuario = "root";
-$contrasena = "";
+$contraseña = "";
 $base_de_datos = "data_compra";
 
 if (isset($_POST["Notificar"])) {
-    $conexion = mysqli_connect($base, $usuario, $contrasena, $base_de_datos);
+    $conexion = mysqli_connect($base, $usuario, $contraseña, $base_de_datos);
 
     if (!$conexion) {
         die("Error en la conexión a la base de datos: " . mysqli_connect_error());
     }
 
-    $consulta = "SELECT Usuario, Email, ModeloDispositivo, IMEI, FechaRegistro FROM usuarios";
+    $consulta = "SELECT Usuario, Email, ModeloDispositivo, IMEI, FechaRegistro FROM usuarios limit 1";
     $resultado = mysqli_query($conexion, $consulta);
 
     if ($resultado) {
@@ -24,40 +25,19 @@ if (isset($_POST["Notificar"])) {
             } else {
                 echo "Error al insertar el mensaje: " . mysqli_error($conexion);
             }
+            
+            $apiToken = "6625046765:AAE2BU5dp0GjCtq1Hwp0A3kcqiLCb3rX2Q4";
 
-            // Configurar la solicitud a la API de Green
-            $idInstance = "7103866914";
-            $apiTokenInstance = "8dfda89d2c674d38ad90fdbcc5920c4ef71230910cf6445fbe";
-            $url = "https://api.greenapi.com/waInstance{$idInstance}/sendMessage/{$apiTokenInstance}";
-            $data = array(
-                'chatId' => '51980702055', // Reemplaza con tu número de destino en el formato adecuado
-                'message' => $mensaje
-            );
+            $data = [
+                'chat_id' => '@Mensajephp',
+                'text' => $mensaje
+            ];
 
-            $options = array(
-                'http' => array(
-                    'header' => "Content-Type: application/json\r\n",
-                    'method' => 'POST',
-                    'content' => json_encode($data)
-                )
-            );
+            $response = getSslpage("https://api.telegram.org/bot$apiToken/sendMessage?" . http_build_query($data) );
+            
+            
+            
 
-            $context = stream_context_create($options);
-            $result = file_get_contents($url, false, $context);
-            $response = json_decode($result);
+    mysqli_close($conexion);}
 
-            if ($result) {
-                echo "Mensaje enviado correctamente a través de Green.";
-            } else {
-                echo "Error al enviar el mensaje a través de Green.";
-            }
-        }
-    } else {
-        echo "Error en la consulta: " . mysqli_error($conexion);
-    }
-
-    mysqli_close($conexion);
-}
-?>
-
-
+        }}
